@@ -1,0 +1,55 @@
+:root {
+
+    --dback: #F9FAFB;
+    --dwhite: #FFF;
+    --dyellow: #EFBE0F;
+
+
+    --blue: #3862DD;
+    /*--blue: #3862DD;*/
+    --textColor: #000000;
+    --white: #fff;
+    --gray: #949494;
+    --lightGray: #E0E0E0;
+    --green: #0A817F;
+    --lightBlue: #D6DFF9;
+    --lightBlueAlpha: rgba(56, 98, 221, 0.17);
+
+
+    --menu: #d9d8d8;
+    --subMenu: #f2f2f2;
+    --mainContent: #020224;
+    --activeTitle: #f2f5f9;
+    --footer: #e5e9ef;
+    --cardBody: #fff;
+    --cardBodyAlpha: #ffffff8f;
+    --cardHeader: #e7e7e7;
+    --cardHeaderAlpha: #e7e7e78a;
+    --container: #eafbff;
+    --activeTab: #007bff;
+    --activeLi: #3030300d;
+    --deActive: #2e2e39;
+    --tableRow: #e2e9f978;
+    --cardBorder: #e7e7e7;
+    --borderBottom: #dcdcdc;
+    --scrollBar: #0707073b;
+    --tableHeader: #f9f9f9;
+    --toolTipBG: #d8d8d8e6;
+    --popupAlpha: #f0f0f0e6;
+    --black: #0707073b;
+
+    --greenAlpha: #18a97978;
+    --greenAlphaGradient: #09a16e85;
+    --darkGreen: #18a979;
+    --blackGreen: #123f30;
+    --red: #d73e36;
+    --blackRed: #79150f;
+    --redAlpha: #d73e3678;
+    --redAlphaGradient: #e124175e;
+    --darkRed: #d73e36;
+    --orange: #ff8124;
+    --blackOrange: #e36407;
+    --orangeAlpha: #e97b50b0;
+
+
+}
