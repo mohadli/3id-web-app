@@ -7,7 +7,7 @@ const Main = () => {
 
 
     useEffect(() => {
-        document.title = window.env.REACT_APP_TITLE;
+        document.title = process.env.REACT_APP_TITLE;
     }, [])
 
     useEffect(() => {
