@@ -2,5 +2,11 @@
   "title": "3 ID",
   "why3ID": "Why 3ID",
   "faq": "FAQ",
-  "documations": "Documations"
+  "documations": "Documations",
+  "content": "Web3 Identity for Every One",
+  "connectWallet": "Connect Wallet",
+  "address": "Address",
+  "domain": "Domain",
+  "description": "Description",
+  "minInput": "{{name}} must be at least {{min}} characters long."
 }

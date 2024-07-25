@@ -8,8 +8,8 @@
 }
 
 .header {
-    height: 10vh;
+    height: 15vh;
     background-color: var(--header);
-    border-bottom: 1px solid var(--gray)
+    border-bottom: 1px solid var(--darkGray)
 
 }
