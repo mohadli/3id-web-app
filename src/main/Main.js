@@ -2,6 +2,11 @@ import React, {useEffect} from 'react';
 import i18n from "i18next";
 import "./Styles/mobile.css";
 import "./Styles/Browser.css";
+import {Route, Routes} from "react-router-dom";
+import Layout from "./Layout/Layout";
+import * as RoutesName from "./Routes/routes";
+import Dashboard from "./Pages/Dashboard/Dashboard";
+
 
 const Main = () => {
 
@@ -21,11 +26,13 @@ const Main = () => {
 
 
     return (
-        <div className={`height-100 width-100 row jc-center ai-center fs-50`} style={{height: '100vh',}}>
+        <Routes>
+            <Route element={<Layout/>}>
+                <Route path={RoutesName.Dashboard} element={<Dashboard/>}/>
 
-            3 ID
-
-        </div>
+            </Route>
+            {/*<Route path="*" element={<Missing/>}/>*/}
+        </Routes>
     );
 };
 

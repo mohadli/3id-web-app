@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-
+import "./i18n/i18n";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Main from "./main/Main";
 import ToastBar, {toast, Toaster} from "react-hot-toast";

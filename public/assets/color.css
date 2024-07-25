@@ -1,5 +1,10 @@
 :root {
 
+
+    --mainContent: #020224;
+    --header: #020224;
+   /* --gray: #414141;*/
+
     --dback: #F9FAFB;
     --dwhite: #FFF;
     --dyellow: #EFBE0F;
@@ -18,7 +23,7 @@
 
     --menu: #d9d8d8;
     --subMenu: #f2f2f2;
-    --mainContent: #020224;
+
     --activeTitle: #f2f5f9;
     --footer: #e5e9ef;
     --cardBody: #fff;

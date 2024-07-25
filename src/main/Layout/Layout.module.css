@@ -1,0 +1,15 @@
+.container {
+    /*background-color: rgba(159, 91, 91, 0.28);*/
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    position: absolute;
+    overflow: hidden;
+}
+
+.header {
+    height: 10vh;
+    background-color: var(--header);
+    border-bottom: 1px solid var(--gray)
+
+}
