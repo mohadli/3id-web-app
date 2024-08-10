@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './TextInput.module.css'
-import Icons from "../Icon/Icons";
+import Icons from "../Icon/Icon";
 import DatePicker from "react-multi-date-picker";
 import persian_fa from "react-date-object/locales/persian_fa";
 import persian from "react-date-object/calendars/persian";

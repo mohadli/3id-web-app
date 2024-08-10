@@ -7,6 +7,8 @@ const Dashboard = () => {
         <div className={`${classes.container} width-70 m-auto py-5`}>
             <Mint/>
 
+            <div className={`my-10`} style={{height: "100vh"}}/>
+
         </div>
     );
 };

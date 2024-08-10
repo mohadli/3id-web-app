@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import "./assets/fontIcon/css/3id-app.css";
 import "./i18n/i18n";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Main from "./main/Main";
 import ToastBar, {toast, Toaster} from "react-hot-toast";
-import Icons from "./components/Icon/Icons";
+import Icons from "./components/Icon/Icon";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

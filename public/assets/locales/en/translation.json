@@ -8,5 +8,7 @@
   "address": "Address",
   "domain": "Domain",
   "description": "Description",
-  "minInput": "{{name}} must be at least {{min}} characters long."
+  "minInput": "{{name}} must be at least {{min}} characters long.",
+  "records": "Records",
+  "addMoreRecords": "Add more records"
 }
