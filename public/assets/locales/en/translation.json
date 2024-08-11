@@ -10,5 +10,10 @@
   "description": "Description",
   "minInput": "{{name}} must be at least {{min}} characters long.",
   "records": "Records",
-  "addMoreRecords": "Add more records"
+  "addMoreRecords": "Add more records",
+  "resolver": "Resolver",
+  "onchain": "onchain",
+  "offchain": "offchain",
+  "mint": "Mint",
+  "free": "Free"
 }

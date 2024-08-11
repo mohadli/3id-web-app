@@ -8,6 +8,7 @@ import Icon from "../../../../../components/Icon/Icon";
 import RECORDS from "../../../../../utils/RECORDS";
 import RecordCard from "../RecordCard/RecordCard";
 import RecordInput from "../RecordInput/RecordInput";
+import ResolverCard from "../ResolverCard/ResolverCard";
 
 const Mint = () => {
 
@@ -16,6 +17,7 @@ const Mint = () => {
     const {t} = useTranslation();
 
     const [showRecords, setShowRecords] = useState(false)
+    const [resolver, setResolver] = useState("onchain")
 
     const [input, setInput] = useState({
         address: {value: "", error: []},
@@ -184,6 +186,23 @@ const Mint = () => {
                 { RECORDS?.map(r => ( <RecordCard title={r} moreRecords={moreRecords} setMoreRecords={setMoreRecords} key={r}/>) )}
             </div>}
 
+            <div className={`row jc-between ai-center mt-10 mb-2`}>
+                <span className={`fs-05`}>{t("resolver")}</span>
+            </div>
+
+            <div className={`row jc-between ai-center mt-3 mb-2`}>
+                <ResolverCard type={t("onchain")} fee={"0.001 ETH"} active={resolver} setResolver={setResolver}/>
+                <ResolverCard type={t("offchain")} fee={"Free"} active={resolver} setResolver={setResolver}/>
+            </div>
+
+
+            <div className={`row jc-between ai-center my-4`}>
+                <Button
+                    type="submit"
+                    buttonClass={`${classes.thisButton} cursor-pointer mb-1 px-2 py-2 width-100`}
+                    buttonTitle={t('mint')}
+                />
+            </div>
 
 
 
