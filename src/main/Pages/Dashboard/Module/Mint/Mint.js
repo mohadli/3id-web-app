@@ -9,12 +9,22 @@ import RECORDS from "../../../../../utils/RECORDS";
 import RecordCard from "../RecordCard/RecordCard";
 import RecordInput from "../RecordInput/RecordInput";
 import ResolverCard from "../ResolverCard/ResolverCard";
+import {ConnectButton} from "@rainbow-me/rainbowkit";
+import {useAccount, useEnsAvatar, useEnsName} from "wagmi";
 
 const Mint = () => {
 
     console.log("type of records", RECORDS);
 
     const {t} = useTranslation();
+
+    const { address } = useAccount()
+    const { data: ensName } = useEnsName({ address })
+    const { isConnected } = useAccount()
+
+    console.log("address", address)
+    console.log("isConnected", isConnected)
+
 
     const [showRecords, setShowRecords] = useState(false)
     const [resolver, setResolver] = useState("onchain")
@@ -82,11 +92,13 @@ const Mint = () => {
 
             <div className={`row jc-between ai-center my-4`}>
                 <span className={`fs-03`}>{t("content")}</span>
-                <Button
+                {/*<Button
                     type="submit"
                     buttonClass={`${classes.thisButton} cursor-pointer mb-1 px-2 py-2`}
                     buttonTitle={t('connectWallet')}
-                />
+                />*/}
+
+                <ConnectButton />
             </div>
 
 
@@ -161,9 +173,14 @@ const Mint = () => {
                 inputClass={`width-100 my-1`}
             />
 
-            {
-                Object.keys(moreRecords).map( key => <RecordInput data={moreRecords[key]} name={key} onchange={moreRecordsHandler} key={key}/>)
-            }
+
+            <div className={`row jc-start ai-start wrap mt-5 ${classes.recordsContainer}`}>
+                {
+                    Object.keys(moreRecords).map( key => <RecordInput data={moreRecords[key]} name={key} onchange={moreRecordsHandler} key={key}/>)
+                }
+            </div>
+
+
 
             <div className={`row jc-between ai-center mt-5`}>
                 <Button

@@ -7,6 +7,13 @@ import {useTranslation} from "react-i18next";
 const Layout = () => {
 
     const {t} = useTranslation();
+
+    console.log("process.env.REACT_APP_DOCUMATIONS_URL", process.env.REACT_APP_DOCUMATIONS_URL)
+
+    const documationUrl = process.env.REACT_APP_DOCUMATIONS_URL
+    console.log("documationUrl",documationUrl)
+
+
     return (
         <>
             <div className={`${classes.container} column jc-center ai-center`}>
@@ -16,7 +23,9 @@ const Layout = () => {
                         <div className={`row jc-end ai-center`}>
                             <span className={`hover-text cursor-pointer mr-3`}>{t("why3ID")}</span>
                             <span className={`hover-text cursor-pointer mr-3`}>{t("faq")}</span>
-                            <span className={`hover-text cursor-pointer mr-3`}>{t("documations")}</span>
+                            <span className={`hover-text cursor-pointer mr-3`}
+                                  onClick={()=>window.open(documationUrl)}
+                            >{t("documations")}</span>
                         </div>
                     </div>
                 </div>

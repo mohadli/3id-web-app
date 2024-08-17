@@ -18,7 +18,7 @@ const RecordInput = ({data, name, onchange}) => {
             //maxLength="10"
             onchange={(e) => onchange(e)}
             alerts={data?.error}
-            inputClass={`width-100 my-1`}
+            inputClass={`width-32 my-1 ml-1`}
         />
     );
 };

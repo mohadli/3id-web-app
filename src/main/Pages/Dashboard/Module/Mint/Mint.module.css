@@ -10,3 +10,7 @@
     border: 1px solid var(--darkGray);
     color: var(--white);
 }
+
+.recordsContainer div:nth-child(3n) {
+    margin-right: initial;
+}

@@ -7,6 +7,17 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Main from "./main/Main";
 import ToastBar, {toast, Toaster} from "react-hot-toast";
 import Icons from "./components/Icon/Icon";
+import {darkTheme, getDefaultConfig, RainbowKitProvider,} from '@rainbow-me/rainbowkit';
+import '@rainbow-me/rainbowkit/styles.css';
+import { WagmiProvider } from 'wagmi';
+import {
+    mainnet,
+    polygon,
+    optimism,
+    arbitrum,
+    base,
+} from 'wagmi/chains';
+import {QueryClientProvider, QueryClient,} from "@tanstack/react-query";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -61,14 +72,34 @@ const Toast = () => {
     </Toaster>;
 }
 
+const config = getDefaultConfig({
+    appName: '3id-app',
+    projectId: 'YOUR_PROJECT_ID',
+    chains: [mainnet, polygon, optimism, arbitrum, base],
+    ssr: false, // If your dApp uses server side rendering (SSR)
+});
+
+const queryClient = new QueryClient();
+
 root.render(
   <React.StrictMode>
-      <BrowserRouter>
-          <Routes>
-              <Route path="/*" element={<Main/>}/>
-          </Routes>
-      </BrowserRouter>
-      <Toast/>
+
+          <WagmiProvider config={config}>
+              <QueryClientProvider client={queryClient}>
+                  <RainbowKitProvider theme={darkTheme()}>
+                      <BrowserRouter>
+
+                      <Routes>
+                          <Route path="/*" element={<Main/>}/>
+                      </Routes>
+                      </BrowserRouter>
+                      <Toast/>
+
+                  </RainbowKitProvider>
+              </QueryClientProvider>
+          </WagmiProvider>
+
+
   </React.StrictMode>
 );
 
