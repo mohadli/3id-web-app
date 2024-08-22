@@ -9,19 +9,16 @@ import ToastBar, {toast, Toaster} from "react-hot-toast";
 import Icons from "./components/Icon/Icon";
 import {darkTheme, getDefaultConfig, RainbowKitProvider,} from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
-import { WagmiProvider } from 'wagmi';
-import {
-    mainnet,
-    polygon,
-    optimism,
-    arbitrum,
-    base,
-} from 'wagmi/chains';
-import {QueryClientProvider, QueryClient,} from "@tanstack/react-query";
+import {WagmiProvider} from 'wagmi';
+import {optimismSepolia, sepolia} from 'wagmi/chains';
+import {QueryClient, QueryClientProvider,} from "@tanstack/react-query";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const Toast = () => {
+
+
+
     return <Toaster position="top-right" toastOptions={
         {
             className: 'ltr',
@@ -75,7 +72,7 @@ const Toast = () => {
 const config = getDefaultConfig({
     appName: '3id-app',
     projectId: 'YOUR_PROJECT_ID',
-    chains: [mainnet, polygon, optimism, arbitrum, base],
+    chains: [sepolia, optimismSepolia],
     ssr: false, // If your dApp uses server side rendering (SSR)
 });
 

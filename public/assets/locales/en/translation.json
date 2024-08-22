@@ -15,5 +15,6 @@
   "onchain": "onchain",
   "offchain": "offchain",
   "mint": "Mint",
-  "free": "Free"
+  "free": "Free",
+  "emptyInput": "{{name}} field is required."
 }

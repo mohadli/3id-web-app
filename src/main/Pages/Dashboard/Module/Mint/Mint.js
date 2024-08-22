@@ -10,7 +10,8 @@ import RecordCard from "../RecordCard/RecordCard";
 import RecordInput from "../RecordInput/RecordInput";
 import ResolverCard from "../ResolverCard/ResolverCard";
 import {ConnectButton} from "@rainbow-me/rainbowkit";
-import {useAccount, useEnsAvatar, useEnsName} from "wagmi";
+import {useAccount, useChainId, useEnsAvatar, useEnsName, useSignMessage} from "wagmi";
+
 
 const Mint = () => {
 
@@ -21,10 +22,18 @@ const Mint = () => {
     const { address } = useAccount()
     const { data: ensName } = useEnsName({ address })
     const { isConnected } = useAccount()
+    const config = useChainId()
+
+
+    const { data, variables, signMessage } = useSignMessage()
+
 
     console.log("address", address)
     console.log("isConnected", isConnected)
+    console.log("data", data)
+    console.log("variables", variables)
 
+    const [loading, setLoading] = useState(false)
 
     const [showRecords, setShowRecords] = useState(false)
     const [resolver, setResolver] = useState("onchain")
@@ -59,6 +68,36 @@ const Mint = () => {
         }
         setInput(prevState)
     }
+
+    const isFormValid = () => {
+        let inputs = {...input}
+
+        const hasError = Object.values(input).find(input => input.error.length > 0)
+        if (hasError) return false
+        let isEmpty = false
+
+        for (const key in inputs) {
+
+            if (inputs[key].value.length === 0) {
+                isEmpty = true
+                inputs = {
+                    ...inputs,
+                    [key]: {
+                        ...inputs[key],
+                        error: [<Trans
+                            i18nKey="emptyInput"
+                            values={{
+                                name: t(key),
+                            }}
+                        />]
+                    }
+                }
+            }
+        }
+
+        setInput(inputs);
+        return !isEmpty;
+    }
     const moreRecordsHandler = (e) => {
         let errorMessage = []
         let inputVal = e.target.value
@@ -84,6 +123,30 @@ const Mint = () => {
         {value: ".0-8.eyz", label: ".0-8.eyz"},
     ]
 
+
+    const submit = async () => {
+
+        if (!isFormValid()) return false;
+
+        setLoading(true)
+
+        if (resolver === "offchain") {
+            signMessage({message: `test`,})
+
+            setLoading(false)
+        }
+
+        if (resolver === "onchain") {
+
+        }
+
+        setLoading(false)
+
+
+
+    }
+
+
     return (
         <div className={`${classes.container} width-100 column`}>
 
@@ -100,6 +163,10 @@ const Mint = () => {
 
                 <ConnectButton />
             </div>
+
+            {/*<div>
+                {Number(config)}
+            </div>*/}
 
 
             <TextInput
@@ -215,9 +282,11 @@ const Mint = () => {
 
             <div className={`row jc-between ai-center my-4`}>
                 <Button
-                    type="submit"
+                    type="button"
                     buttonClass={`${classes.thisButton} cursor-pointer mb-1 px-2 py-2 width-100`}
-                    buttonTitle={t('mint')}
+                    buttonTitle={loading ? "Loading..." : t('mint')}
+                    onClick={()=>submit()}
+                    disabled={loading || !isConnected}
                 />
             </div>
 
