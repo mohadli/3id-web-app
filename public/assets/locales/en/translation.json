@@ -16,5 +16,7 @@
   "offchain": "offchain",
   "mint": "Mint",
   "free": "Free",
-  "emptyInput": "{{name}} field is required."
+  "emptyInput": "{{name}} field is required.",
+  "recent": "Recent",
+  "HowItWorks": "How it works"
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import classes from './Dashboard.module.css'
 import Mint from "./Module/Mint/Mint";
 import Domains from "./Module/Domains/Domains";
+import HowItWorks from "./Module/HowItWorks/HowItWorks";
 
 const Dashboard = () => {
     return (
@@ -9,6 +10,7 @@ const Dashboard = () => {
             <Mint/>
 
             <Domains/>
+            <HowItWorks/>
 
             <div className={`my-10`} style={{height: "100vh"}}/>
 
