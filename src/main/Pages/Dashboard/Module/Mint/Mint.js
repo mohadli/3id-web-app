@@ -15,8 +15,6 @@ import {useAccount, useChainId, useEnsAvatar, useEnsName, useSignMessage} from "
 
 const Mint = () => {
 
-    console.log("type of records", RECORDS);
-
     const {t} = useTranslation();
 
     const { address } = useAccount()
@@ -25,13 +23,17 @@ const Mint = () => {
     const config = useChainId()
 
 
-    const { data, variables, signMessage } = useSignMessage()
+    const { data, variables, signMessage } = useSignMessage({
+        onSuccess(data) {
+            console.log('Signed message:', data);
+        },
+    })
 
 
-    console.log("address", address)
+    /*console.log("address", address)
     console.log("isConnected", isConnected)
     console.log("data", data)
-    console.log("variables", variables)
+    console.log("variables", variables)*/
 
     const [loading, setLoading] = useState(false)
 
@@ -47,8 +49,8 @@ const Mint = () => {
 
     const [moreRecords, setMoreRecords] = useState({});
 
-    console.log("Object.keys(moreRecords) ", Object.keys(moreRecords) )
-    console.log("RECORDS ", RECORDS )
+    /*console.log("Object.keys(moreRecords) ", Object.keys(moreRecords) )
+    console.log("RECORDS ", RECORDS )*/
 
     const inputHandler = (e) => {
         let errorMessage = []
@@ -130,8 +132,16 @@ const Mint = () => {
 
         setLoading(true)
 
+
+
+        const dataToSign = JSON.stringify({
+            address: input?.address?.value,
+            domain: input?.domain?.value + input?.prefix?.value,
+            description: input?.description?.value,
+        });
+
         if (resolver === "offchain") {
-            signMessage({message: `test`,})
+            signMessage({message: dataToSign,})
 
             setLoading(false)
         }

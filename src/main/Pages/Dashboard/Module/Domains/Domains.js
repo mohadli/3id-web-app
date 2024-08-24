@@ -21,7 +21,7 @@ const Domains = () => {
 
             <div className={`${classes.content} row py-10 fs-02`}>
                 {
-                    Object?.keys(data)?.map((name) => <div className={`ml-2`}>{name.slice(0, name.indexOf("."))}<span className={`${classes.prefix}`}>{name.slice(name.indexOf("."), name.lastIndexOf())}</span> </div>)
+                    Object?.keys(data)?.map((name, index) => <div className={`ml-2`} key={index}>{name.slice(0, name.indexOf("."))}<span className={`${classes.prefix}`}>{name.slice(name.indexOf("."))}</span> </div>)
                 }
             </div>
 

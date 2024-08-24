@@ -8,10 +8,8 @@ const Layout = () => {
 
     const {t} = useTranslation();
 
-    console.log("process.env.REACT_APP_DOCUMATIONS_URL", process.env.REACT_APP_DOCUMATIONS_URL)
-
     const documationUrl = process.env.REACT_APP_DOCUMATIONS_URL
-    console.log("documationUrl",documationUrl)
+
 
 
     return (
