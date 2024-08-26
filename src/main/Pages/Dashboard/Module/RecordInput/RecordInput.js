@@ -2,6 +2,7 @@ import React from 'react';
 import classes from './RecordInput.module.css';
 import TextInput from "../../../../../components/TextInput/TextInput";
 import {capitalizeFirstLetter} from "../../../../../utils/utils";
+import {isMobile} from "react-device-detect";
 
 const RecordInput = ({data, name, onchange}) => {
     return (
@@ -18,7 +19,7 @@ const RecordInput = ({data, name, onchange}) => {
             //maxLength="10"
             onchange={(e) => onchange(e)}
             alerts={data?.error}
-            inputClass={`width-32 my-1 ml-1`}
+            inputClass={`${isMobile ? "width-100" : "width-32"} my-1 ml-1`}
         />
     );
 };

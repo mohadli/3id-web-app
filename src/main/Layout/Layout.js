@@ -22,7 +22,7 @@ const Layout = () => {
                             <span className={`hover-text cursor-pointer mr-3`}>{t("why3ID")}</span>
                             <span className={`hover-text cursor-pointer mr-3`}>{t("faq")}</span>
                             <span className={`hover-text cursor-pointer mr-3`}
-                                  onClick={()=>window.open(documationUrl)}
+                                  onClick={()=>window.open("https://3id-one.gitbook.io/")}
                             >{t("documations")}</span>
                         </div>
                     </div>

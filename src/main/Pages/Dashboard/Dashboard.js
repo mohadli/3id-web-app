@@ -3,6 +3,7 @@ import classes from './Dashboard.module.css'
 import Mint from "./Module/Mint/Mint";
 import Domains from "./Module/Domains/Domains";
 import HowItWorks from "./Module/HowItWorks/HowItWorks";
+import Why3ID from "./Module/Why3ID/Why3ID";
 
 const Dashboard = () => {
     return (
@@ -11,6 +12,7 @@ const Dashboard = () => {
 
             <Domains/>
             <HowItWorks/>
+            <Why3ID/>
 
             <div className={`my-10`} style={{height: "100vh"}}/>
 

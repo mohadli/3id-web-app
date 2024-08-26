@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import classes from './Mint.module.css';
 import {images} from "../../../../../assets/images/images";
 import {Trans, useTranslation} from "react-i18next";
@@ -10,8 +10,19 @@ import RecordCard from "../RecordCard/RecordCard";
 import RecordInput from "../RecordInput/RecordInput";
 import ResolverCard from "../ResolverCard/ResolverCard";
 import {ConnectButton} from "@rainbow-me/rainbowkit";
-import {useAccount, useChainId, useEnsAvatar, useEnsName, useSignMessage, useWriteContract} from "wagmi";
+import {
+    useAccount,
+    useChainId,
+    useEnsAvatar,
+    useEnsName,
+    useReadContract,
+    useSignMessage,
+    useWriteContract
+} from "wagmi";
 import { abi } from '../../../../../utils/contract-abi';
+import web3 from "web3";
+import {toast} from "react-hot-toast";
+import {isMobile} from "react-device-detect";
 
 
 const Mint = () => {
@@ -26,7 +37,18 @@ const Mint = () => {
 
     const { data, variables, signMessage } = useSignMessage({})
 
-    const {
+
+
+    const contractConfig = {
+        address: '0x4f88Ea0AE5d48ce348CD88812E43aEfD005ed1B8',
+        abi,
+    };
+
+
+
+
+
+    let {
         data: hash,
         writeContract: mint,
         isPending: isMintLoading,
@@ -34,10 +56,33 @@ const Mint = () => {
         error: mintError,
     } = useWriteContract();
 
-    const contractConfig = {
-        address: '0xf5f2c09eb63cb5696612e8448c3482359d32c9e2',
-        abi,
-    };
+
+    useEffect(()=>{
+
+        if (hash !== undefined) {
+            toast.success(t("mintSuccessfully"))
+            setInput({
+                address: {value: "", error: []},
+                domain: {value: "", error: []},
+                description: {value: "", error: []},
+                suffix: {value: "", error: []},
+            })
+            setMoreRecords({})
+        }
+
+    },[hash])
+
+    useEffect(()=>{
+
+        if (mintError) {
+            toast.error(mintError?.shortMessage)
+        }
+
+    },[mintError])
+
+
+
+
 
     /*console.log("address", address)
     console.log("isConnected", isConnected)
@@ -55,6 +100,15 @@ const Mint = () => {
         description: {value: "", error: []},
         suffix: {value: "", error: []},
     });
+
+    const {data: readContractData , error:readContractError, refetch }   = useReadContract({
+        ...contractConfig,
+        functionName: 'getFee',
+        enabled: false,
+        args: [input?.suffix?.value],
+    })
+
+    console.log("readContractData", readContractData)
 
     const [moreRecords, setMoreRecords] = useState({});
 
@@ -129,9 +183,10 @@ const Mint = () => {
     }
 
     const domainsList = [
-        {value: ".3id.one", label: ".3id.one"},
-        {value: ".popns.eth", label: ".popns.eth"},
-        {value: ".0-8.eyz", label: ".0-8.eyz"},
+        {value: "3idone.eth", label: "3idone.eth"},
+        /*{value: "3id.one", label: "3id.one"},
+        {value: "popns.eth", label: "popns.eth"},
+        {value: "0-8.eyz", label: "0-8.eyz"},*/
     ]
 
     /*if (Object.keys(moreRecords).length > 0) {
@@ -140,18 +195,15 @@ const Mint = () => {
         /!*console.log("m", m),*!/
 
     }
+
 */
+
 
     const submit = async () => {
 
         if (!isFormValid()) return false;
 
         setLoading(true)
-
-
-
-
-
 
        /* const dataToSign = JSON.stringify({
             address: input?.address?.value,
@@ -177,19 +229,33 @@ const Mint = () => {
 
         if (resolver === "offchain") {
             signMessage({message: JSON.stringify(dataToSign),})
+
+            setInput({
+                address: {value: "", error: []},
+                domain: {value: "", error: []},
+                description: {value: "", error: []},
+                suffix: {value: "", error: []},
+            })
+            setMoreRecords({})
+
             setLoading(false)
         }
 
         if (resolver === "onchain") {
 
-            signMessage({message: JSON.stringify(dataToSign),})
+
+            //signMessage({message: JSON.stringify(dataToSign),})
 
             mint?.({
                 ...contractConfig,
                 functionName: 'mintSubdomain',
-                args: [input?.address?.value, input?.domain?.value+input?.suffix?.value],
+                args: [ input?.address?.value, input?.domain?.value+"."+input?.suffix?.value],
+                value: readContractData
             })
 
+
+
+            setLoading(false)
         }
 
         setLoading(false)
@@ -200,13 +266,13 @@ const Mint = () => {
 
 
     return (
-        <div className={`${classes.container} width-100 column`}>
+        <div className={`${classes.container} width-100 ${isMobile ? "column jc-center ai-center" : "" }`}>
 
-            <img src={images.appLogo} alt="logo" className={`${classes.appLogo} width-8`} />
+            <img src={images.appLogo} alt="logo" className={`${classes.appLogo} ${isMobile ? "width-25" : "width-8"}`}/>
 
 
-            <div className={`row jc-between ai-center my-4`}>
-                <span className={`fs-03`}>{t("content")}</span>
+            <div className={`${isMobile ? "column" : "row"} jc-between ai-center my-4`}>
+                <span className={`fs-03 my-2`}>{t("content")}</span>
                 {/*<Button
                     type="submit"
                     buttonClass={`${classes.thisButton} cursor-pointer mb-1 px-2 py-2`}
@@ -293,7 +359,7 @@ const Mint = () => {
             />
 
 
-            <div className={`row jc-start ai-start wrap mt-5 ${classes.recordsContainer}`}>
+            <div className={`row jc-start ai-start wrap mt-5 width-100 ${classes.recordsContainer}`}>
                 {
                     Object.keys(moreRecords).map( key => <RecordInput data={moreRecords[key]} name={key} onchange={moreRecordsHandler} key={key}/>)
                 }
@@ -326,16 +392,16 @@ const Mint = () => {
                 <span className={`fs-05`}>{t("resolver")}</span>
             </div>
 
-            <div className={`row jc-between ai-center mt-3 mb-2`}>
-                <ResolverCard type={t("onchain")} fee={"0.001 ETH"} active={resolver} setResolver={setResolver}/>
+            <div className={`row jc-between ai-center mt-3 mb-2 wrap`}>
+                <ResolverCard type={t("onchain")} fee={readContractData ? web3.utils.fromWei(web3.utils.toNumber(readContractData),'ether')+ " ETH" : "---" } active={resolver} setResolver={setResolver}/>
                 <ResolverCard type={t("offchain")} fee={"Free"} active={resolver} setResolver={setResolver}/>
             </div>
 
 
-            <div className={`row jc-between ai-center my-4`}>
+            <div className={`row jc-between ai-center my-4 width-100`}>
                 <Button
                     type="button"
-                    buttonClass={`${classes.thisButton} cursor-pointer mb-1 px-2 py-2 width-100`}
+                    buttonClass={`${classes.thisButton} cursor-pointer mb-1  py-2 width-100`}
                     buttonTitle={loading ? "Loading..." : t('mint')}
                     onClick={()=>submit()}
                     disabled={loading || !isConnected}

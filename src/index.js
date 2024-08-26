@@ -5,13 +5,14 @@ import "./assets/fontIcon/css/3id-app.css";
 import "./i18n/i18n";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Main from "./main/Main";
-import ToastBar, {toast, Toaster} from "react-hot-toast";
 import Icons from "./components/Icon/Icon";
 import {darkTheme, getDefaultConfig, RainbowKitProvider,} from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
 import {WagmiProvider} from 'wagmi';
-import {optimismSepolia, sepolia} from 'wagmi/chains';
+import {optimism, optimismSepolia, sepolia} from '@wagmi/core/chains';
 import {QueryClient, QueryClientProvider,} from "@tanstack/react-query";
+
+import toast, {ToastBar, Toaster} from "react-hot-toast";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -19,7 +20,7 @@ const Toast = () => {
 
 
 
-    return <Toaster position="top-right" toastOptions={
+    return <Toaster position="top-center" toastOptions={
         {
             className: 'ltr',
             style: {
@@ -33,13 +34,13 @@ const Toast = () => {
             success: {
                 style: {
                     background: "var(--blackGreen)",
-                    border: "2px solid var(--darkGreen)"
+                    border: "2px solid var(--blackGreen)"
                 },
             },
             error: {
                 style: {
                     background: "var(--blackRed)",
-                    border: "2px solid var(--darkRed)"
+                    border: "2px solid var(--blackRed)"
                 },
             },
             custom: {
@@ -56,7 +57,7 @@ const Toast = () => {
                             /*<button >بستن</button>*/
                             <Icons
                                 iconName="icon-cancel fs-05 flex "
-                                iconClass={`toastIcon cursor-pointer  mx-2`}
+                                iconClass={`toastIcon cursor-pointer  mx-05`}
                                 onClick={() => toast.dismiss(t.id)}
                             />
                         )}
@@ -72,7 +73,7 @@ const Toast = () => {
 const config = getDefaultConfig({
     appName: '3id-app',
     projectId: 'YOUR_PROJECT_ID',
-    chains: [sepolia, optimismSepolia],
+    chains: [optimism],
     ssr: false, // If your dApp uses server side rendering (SSR)
 });
 

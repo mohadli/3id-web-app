@@ -47,6 +47,12 @@
       "css": "plus-1",
       "code": 256,
       "src": "entypo"
+    },
+    {
+      "uid": "06301c50d89b5d3e651bd07ebd6d7de7",
+      "css": "cancel",
+      "code": 263,
+      "src": "mfglabs"
     }
   ]
 }

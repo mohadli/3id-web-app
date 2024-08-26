@@ -1,11 +1,11 @@
 @font-face {
   font-family: '3id-app';
-  src: url('../font/3id-app.eot?22697096');
-  src: url('../font/3id-app.eot?22697096#iefix') format('embedded-opentype'),
-       url('../font/3id-app.woff2?22697096') format('woff2'),
-       url('../font/3id-app.woff?22697096') format('woff'),
-       url('../font/3id-app.ttf?22697096') format('truetype'),
-       url('../font/3id-app.svg?22697096#3id-app') format('svg');
+  src: url('../font/3id-app.eot?84196956');
+  src: url('../font/3id-app.eot?84196956#iefix') format('embedded-opentype'),
+       url('../font/3id-app.woff2?84196956') format('woff2'),
+       url('../font/3id-app.woff?84196956') format('woff'),
+       url('../font/3id-app.ttf?84196956') format('truetype'),
+       url('../font/3id-app.svg?84196956#3id-app') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: '3id-app';
-    src: url('../font/3id-app.svg?22697096#3id-app') format('svg');
+    src: url('../font/3id-app.svg?84196956#3id-app') format('svg');
   }
 }
 */
@@ -61,3 +61,4 @@
 .icon-up-open:before { content: '\0104'; } /* 'Ą' */
 .icon-record-outline:before { content: '\0105'; } /* 'ą' */
 .icon-record:before { content: '\0106'; } /* 'Ć' */
+.icon-cancel:before { content: '\0107'; } /* 'ć' */
