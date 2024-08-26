@@ -10,7 +10,8 @@ import RecordCard from "../RecordCard/RecordCard";
 import RecordInput from "../RecordInput/RecordInput";
 import ResolverCard from "../ResolverCard/ResolverCard";
 import {ConnectButton} from "@rainbow-me/rainbowkit";
-import {useAccount, useChainId, useEnsAvatar, useEnsName, useSignMessage} from "wagmi";
+import {useAccount, useChainId, useEnsAvatar, useEnsName, useSignMessage, useWriteContract} from "wagmi";
+import { abi } from '../../../../../utils/contract-abi';
 
 
 const Mint = () => {
@@ -23,12 +24,20 @@ const Mint = () => {
     const config = useChainId()
 
 
-    const { data, variables, signMessage } = useSignMessage({
-        onSuccess(data) {
-            console.log('Signed message:', data);
-        },
-    })
+    const { data, variables, signMessage } = useSignMessage({})
 
+    const {
+        data: hash,
+        writeContract: mint,
+        isPending: isMintLoading,
+        isSuccess: isMintStarted,
+        error: mintError,
+    } = useWriteContract();
+
+    const contractConfig = {
+        address: '0xf5f2c09eb63cb5696612e8448c3482359d32c9e2',
+        abi,
+    };
 
     /*console.log("address", address)
     console.log("isConnected", isConnected)
@@ -125,6 +134,13 @@ const Mint = () => {
         {value: ".0-8.eyz", label: ".0-8.eyz"},
     ]
 
+    /*if (Object.keys(moreRecords).length > 0) {
+        Object.keys(moreRecords).map( (m) =>  console.log(moreRecords[m]?.value))
+
+        /!*console.log("m", m),*!/
+
+    }
+*/
 
     const submit = async () => {
 
@@ -134,19 +150,45 @@ const Mint = () => {
 
 
 
-        const dataToSign = JSON.stringify({
+
+
+
+       /* const dataToSign = JSON.stringify({
             address: input?.address?.value,
             domain: input?.domain?.value + input?.prefix?.value,
             description: input?.description?.value,
-        });
+        });*/
+
+
+        /*Object.keys(mergeDataToSign).map( (data) => {
+            dataToSign.entries({
+                data: mergeDataToSign[data].value
+            })
+        })*/
+
+        let mergeDataToSign = {...input, ...moreRecords}
+        let dataToSign = {}
+
+        for (let key in mergeDataToSign) {
+            dataToSign[key] = mergeDataToSign[key].value;
+        }
+
+
 
         if (resolver === "offchain") {
-            signMessage({message: dataToSign,})
-
+            signMessage({message: JSON.stringify(dataToSign),})
             setLoading(false)
         }
 
         if (resolver === "onchain") {
+
+            signMessage({message: JSON.stringify(dataToSign),})
+
+            mint?.({
+                ...contractConfig,
+                functionName: 'mintSubdomain',
+                args: [input?.address?.value, input?.domain?.value+input?.suffix?.value],
+            })
 
         }
 
