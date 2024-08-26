@@ -1,0 +1,9 @@
+.container {
+    background-color: initial;
+    border: 2px dotted var(--darkGray);
+}
+
+.container.active {
+    background-color: var(--darkBlue);
+    border: 2px dotted var(--darkGray);
+}

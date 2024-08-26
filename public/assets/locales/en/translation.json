@@ -1,3 +1,25 @@
 {
-  "title": "3 ID"
+  "title": "3 ID",
+  "why3ID": "Why 3ID",
+  "faq": "FAQ",
+  "documations": "Documations",
+  "content": "Web3 Identity for Every One",
+  "connectWallet": "Connect Wallet",
+  "address": "Address",
+  "domain": "Domain",
+  "description": "Description",
+  "minInput": "{{name}} must be at least {{min}} characters long.",
+  "records": "Records",
+  "addMoreRecords": "Add more records",
+  "resolver": "Resolver",
+  "onchain": "onchain",
+  "offchain": "offchain",
+  "mint": "Mint",
+  "free": "Free",
+  "emptyInput": "{{name}} field is required.",
+  "recent": "Recent",
+  "HowItWorks": "How it works",
+  "connectYourWallet": "Connect your wallet",
+  "chooseYourData": "Choose name, records, and resolver type",
+  "mintYourENSSubdomain": "Mint your ENS subdomain"
 }

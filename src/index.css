@@ -163,7 +163,7 @@ html, body {
 }
 
 a {
-  color: var(--textColor);
+  color: var(--white);
   text-decoration: none;
 }
 

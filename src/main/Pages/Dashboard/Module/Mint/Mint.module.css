@@ -1,0 +1,16 @@
+.thisButton {
+    /*border: 1px solid var(--dyellow);*/
+    background-color: var(--blue);
+    color: var(--white);
+}
+
+.moreButton {
+    /*border: 1px solid var(--dyellow);*/
+    background-color: initial;
+    border: 1px solid var(--darkGray);
+    color: var(--white);
+}
+
+.recordsContainer div:nth-child(3n) {
+    margin-right: initial;
+}

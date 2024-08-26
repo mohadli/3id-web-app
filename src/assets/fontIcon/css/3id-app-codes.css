@@ -1,0 +1,8 @@
+
+.icon-plus-1:before { content: '\0100'; } /* 'Ā' */
+.icon-down-open:before { content: '\0101'; } /* 'ā' */
+.icon-left-open:before { content: '\0102'; } /* 'Ă' */
+.icon-right-open:before { content: '\0103'; } /* 'ă' */
+.icon-up-open:before { content: '\0104'; } /* 'Ą' */
+.icon-record-outline:before { content: '\0105'; } /* 'ą' */
+.icon-record:before { content: '\0106'; } /* 'Ć' */

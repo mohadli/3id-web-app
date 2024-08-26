@@ -1,6 +1,6 @@
 import React from "react";
 
-const Icons = ({iconClass, iconName, onClick}) => {
+const Icon = ({iconClass, iconName, onClick}) => {
   return (
     <span className={iconClass} onClick={onClick}>
       <i className={iconName} />
@@ -8,4 +8,4 @@ const Icons = ({iconClass, iconName, onClick}) => {
   );
 };
 
-export default Icons;
+export default Icon;

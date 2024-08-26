@@ -1,0 +1,1 @@
+export {useGetDomains} from "./hooks/useGetDomains"

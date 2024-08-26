@@ -1,0 +1,8 @@
+
+.icon-plus-1 { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0100;&nbsp;'); }
+.icon-down-open { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0101;&nbsp;'); }
+.icon-left-open { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0102;&nbsp;'); }
+.icon-right-open { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0103;&nbsp;'); }
+.icon-up-open { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0104;&nbsp;'); }
+.icon-record-outline { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0105;&nbsp;'); }
+.icon-record { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0106;&nbsp;'); }
