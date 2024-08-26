@@ -3,6 +3,7 @@ import classes from './Domains.module.css';
 import {useGetDomains} from "../../../../../query";
 import Title from "../../../../../components/Title/Title";
 import {useTranslation} from "react-i18next";
+import {isMobile} from "react-device-detect";
 const Domains = () => {
 
     const {t} = useTranslation();
@@ -21,7 +22,7 @@ const Domains = () => {
 
             <div className={`${classes.content} row py-10 fs-02`}>
                 {
-                    Object?.keys(data)?.map((name, index) => <div className={`ml-2`} key={index}>{name.slice(0, name.indexOf("."))}<span className={`${classes.prefix}`}>{name.slice(name.indexOf("."))}</span> </div>)
+                    Object?.keys(data)?.map((name, index) => <div className={`${isMobile ? "ml-5" : "ml-2"}`} key={index}>{name.slice(0, name.indexOf("."))}<span className={`${classes.prefix}`}>{name.slice(name.indexOf("."))}</span> </div>)
                 }
             </div>
 

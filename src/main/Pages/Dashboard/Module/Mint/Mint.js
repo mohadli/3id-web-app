@@ -268,7 +268,7 @@ const Mint = () => {
     return (
         <div className={`${classes.container} width-100 ${isMobile ? "column jc-center ai-center" : "" }`}>
 
-            <img src={images.appLogo} alt="logo" className={`${classes.appLogo} ${isMobile ? "width-25" : "width-8"}`}/>
+            <img src={images.whiteLogo} alt="logo" className={`${classes.appLogo} ${isMobile ? "width-25" : "width-8"}`}/>
 
 
             <div className={`${isMobile ? "column" : "row"} jc-between ai-center my-4`}>

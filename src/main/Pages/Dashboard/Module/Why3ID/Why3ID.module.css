@@ -1,0 +1,11 @@
+.content {
+    text-align: start;
+}
+
+@media (max-width: 480px) {
+
+    .content {
+        text-align: center;
+    }
+
+}

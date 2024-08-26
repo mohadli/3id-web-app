@@ -7,15 +7,11 @@ const Why3ID = () => {
     const {t} = useTranslation();
 
     return (
-        <div className={`${classes.container} width-100 column my-10`}>
-
+        <div className={`${classes.container} width-100 column my-10`} id="why3ID">
             <Title title={t("why3ID")}/>
-
-            <div className={`${classes.content}`}>
-
-
+            <div className={`${classes.content} mt-7 text-center`}>
+                {t("why3IDContent")}
             </div>
-
         </div>
     );
 };

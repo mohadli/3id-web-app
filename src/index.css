@@ -30,6 +30,7 @@ html, body {
   overflow-x: hidden;
   background-color: var(--mainContent);
   color: var(--white);
+  scroll-behavior: smooth;
   /*background-color: var(--lightBlueAlpha);*/
 }
 

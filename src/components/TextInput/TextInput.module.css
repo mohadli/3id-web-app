@@ -38,6 +38,14 @@
     align-items: center;
 }
 
+@media (max-width: 480px) {
+
+    .inputGroup .after  {
+        width: 45%;
+    }
+
+}
+
 
 
 .thisIcon{
@@ -262,7 +270,7 @@
 
 .selectBox {
     width: 100%;
-    font-size: 0.75vw;
+    font-size: 1rem;
     display: flex;
     flex-direction: row;
     justify-content: space-around;

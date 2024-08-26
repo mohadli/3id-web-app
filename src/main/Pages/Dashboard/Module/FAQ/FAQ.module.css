@@ -1,0 +1,14 @@
+.container {
+
+}
+
+.card {
+    border-radius: 14px;
+    background-color: #6389FF;
+}
+
+.thisButton {
+    border: 1px solid  #EAEAEA;
+    background:  #EAEAEA;
+    color: #27283B;
+}
