@@ -13,3 +13,9 @@
     border-bottom: 1px solid var(--darkGray)
 
 }
+.footer {
+    height: 15vh;
+    background-color: var(--header);
+    border-top: 1px solid var(--darkGray)
+
+}

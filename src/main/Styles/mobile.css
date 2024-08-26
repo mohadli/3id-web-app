@@ -1,0 +1,16 @@
+@media (max-width: 480px) {
+
+    html, body {
+        font-size: 2.8vw !important;
+        line-height: 3.6vh !important;
+    }
+
+    .button {
+        height: 5.65vh;
+    }
+
+    .go2072408551 {
+        max-width: inherit !important;
+    }
+
+}
