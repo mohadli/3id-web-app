@@ -5,10 +5,11 @@ import Domains from "./Module/Domains/Domains";
 import HowItWorks from "./Module/HowItWorks/HowItWorks";
 import Why3ID from "./Module/Why3ID/Why3ID";
 import FAQ from "./Module/FAQ/FAQ";
+import {isMobile} from "react-device-detect";
 
 const Dashboard = () => {
     return (
-        <div className={`${classes.container} width-70 m-auto py-5`}>
+        <div className={`${classes.container} ${isMobile ? "width-75" : "width-70"}  m-auto py-5`}>
             <Mint/>
 
             <Domains/>

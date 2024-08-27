@@ -28,7 +28,7 @@ const Toast = () => {
                 color: "white",
                 lineHeight: "4vh",
                 width: "100%",
-                background: "var(--mainContent)",
+                background: "var(--activeTab)",
 
             },
             success: {
@@ -45,7 +45,8 @@ const Toast = () => {
             },
             custom: {
                 style: {
-                    background: "var(--Orange)",
+                    background: "var--activeTab)",
+                    border: "2px solid var--activeTab)"
                 },
             },
         }} containerStyle={{}}>
