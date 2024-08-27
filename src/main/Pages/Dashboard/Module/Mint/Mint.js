@@ -51,10 +51,13 @@ const Mint = () => {
     let {
         data: hash,
         writeContract: mint,
-        isPending: isMintLoading,
-        isSuccess: isMintStarted,
+        isPending: isMintPending,
+        isSuccess: isSuccess,
         error: mintError,
     } = useWriteContract();
+
+    console.log("isSuccess", isSuccess)
+    console.log("hash", hash)
 
 
     useEffect(()=>{
@@ -70,7 +73,7 @@ const Mint = () => {
             setMoreRecords({})
         }
 
-    },[hash])
+    },[isSuccess])
 
     useEffect(()=>{
 
@@ -80,6 +83,13 @@ const Mint = () => {
 
     },[mintError])
 
+    useEffect(()=>{
+
+        if (isMintPending) {
+            toast(t("pending"))
+        }
+
+    },[isMintPending])
 
 
 
@@ -108,8 +118,6 @@ const Mint = () => {
         args: [input?.suffix?.value],
     })
 
-    console.log("readContractData", readContractData)
-
     const [moreRecords, setMoreRecords] = useState({});
 
     /*console.log("Object.keys(moreRecords) ", Object.keys(moreRecords) )
@@ -132,6 +140,8 @@ const Mint = () => {
             [e.target.dataset.name]: {...input[e.target.dataset.name], value: inputVal, error: errorMessage}
         }
         setInput(prevState)
+
+
     }
 
     const isFormValid = () => {
@@ -182,6 +192,36 @@ const Mint = () => {
         setMoreRecords(prevState)
     }
 
+    const ismoreRecordsFormValid = () => {
+        let inputs = {...moreRecords}
+
+        const hasError = Object.values(moreRecords).find(input => moreRecords.error.length > 0)
+        if (hasError) return false
+        let isEmpty = false
+
+        for (const key in inputs) {
+
+            if (inputs[key].value.length === 0) {
+                isEmpty = true
+                inputs = {
+                    ...inputs,
+                    [key]: {
+                        ...inputs[key],
+                        error: [<Trans
+                            i18nKey="emptyInput"
+                            values={{
+                                name: t(key),
+                            }}
+                        />]
+                    }
+                }
+            }
+        }
+
+        setMoreRecords(inputs);
+        return !isEmpty;
+    }
+
     const domainsList = [
         {value: "3idone.eth", label: "3idone.eth"},
         /*{value: "3id.one", label: "3id.one"},
@@ -202,6 +242,7 @@ const Mint = () => {
     const submit = async () => {
 
         if (!isFormValid()) return false;
+        if (!ismoreRecordsFormValid()) return false;
 
         setLoading(true)
 
@@ -268,11 +309,11 @@ const Mint = () => {
     return (
         <div className={`${classes.container} width-100 ${isMobile ? "column jc-center ai-center" : "" }`}>
 
-            <img src={images.whiteLogo} alt="logo" className={`${classes.appLogo} ${isMobile ? "width-25" : "width-8"}`}/>
 
 
-            <div className={`${isMobile ? "column" : "row"} jc-between ai-center my-4`}>
-                <span className={`fs-03 my-2`}>{t("content")}</span>
+
+            <div className={`${isMobile ? "column" : "row"} jc-between ai-center mb-4`}>
+                <span className={`fs-08 ${isMobile ? "mb-3" : ""}`}>{t("content")}</span>
                 {/*<Button
                     type="submit"
                     buttonClass={`${classes.thisButton} cursor-pointer mb-1 px-2 py-2`}
@@ -359,7 +400,7 @@ const Mint = () => {
             />
 
 
-            <div className={`row jc-start ai-start wrap mt-5 width-100 ${classes.recordsContainer}`}>
+            <div className={`row jc-start ai-start wrap ${isMobile ? "mt-2" : "mt-5"} width-100 ${classes.recordsContainer}`}>
                 {
                     Object.keys(moreRecords).map( key => <RecordInput data={moreRecords[key]} name={key} onchange={moreRecordsHandler} key={key}/>)
                 }

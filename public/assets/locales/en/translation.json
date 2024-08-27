@@ -3,7 +3,7 @@
   "why3ID": "Why 3ID",
   "faq": "FAQ",
   "documations": "Documations",
-  "content": "Web3 Identity for Every One",
+  "content": "Web3IDentity for EveryOne!",
   "connectWallet": "Connect Wallet",
   "address": "Address",
   "domain": "Domain",
@@ -22,9 +22,9 @@
   "connectYourWallet": "Connect your wallet",
   "chooseYourData": "Choose name, records, and resolver type",
   "mintYourENSSubdomain": "Mint your ENS subdomain",
-  "why3ID": "Why 3ID",
   "mintSuccessfully": "Domain mint successfully",
   "why3IDContent": "3ID aims to make decentralized identity affordable and practical for everyone in the web3 space, whether users or curators. We leverage cutting-edge technologies to provide ENS-based subdomains. Our unique approach includes offering free and low-cost subdomains through off-chain storage and Layer 2 solutions, minimizing the users' barriers to entry. With upcoming features of subdomain marketplace and batch subdomain services, 3ID enables a new era of utilizing ENS domains' potential for personal identity, brand management, and business needs. Powered by technologies like CCIP read, Cloudflare Workers, and Layer 2 networks, 3ID ensures a secure and efficient experience across the Web3 ecosystem.",
-  "FAQ": "FAQ",
-  "copyrightText": "copyright character next to 2024"
+  "copyrightText": "© 2024",
+  "siteUrl": "3ID.one",
+  "pending": "Pending..."
 }

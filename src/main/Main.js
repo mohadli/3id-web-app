@@ -29,7 +29,6 @@ const Main = () => {
         <Routes>
             <Route element={<Layout/>}>
                 <Route path={RoutesName.Dashboard} element={<Dashboard/>}/>
-
             </Route>
             {/*<Route path="*" element={<Missing/>}/>*/}
         </Routes>

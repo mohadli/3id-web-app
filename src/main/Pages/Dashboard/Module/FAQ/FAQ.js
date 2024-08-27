@@ -17,7 +17,7 @@ const FAQ = () => {
     return (
         <div className={`${classes.container} width-100 column jc-start ai-center mt-10`} id="FAQ">
 
-            <Title title={t("FAQ")}/>
+            <Title title={t("faq")}/>
 
             <div className={`width-100 column jc-canter ai-center my-5`}>
                 {faqData.map((faq , index) => <FAQCard data={faq} index={index} key={index} isOpen={isOpen} setIsOpen={setIsOpen}/>)}
