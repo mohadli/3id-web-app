@@ -1,11 +1,7 @@
 import React from 'react';
 import classes from './TextInput.module.css'
-import Icons from "../Icon/Icon";
 import DatePicker from "react-multi-date-picker";
-import persian_fa from "react-date-object/locales/persian_fa";
-import persian from "react-date-object/calendars/persian";
 import "react-multi-date-picker/styles/backgrounds/bg-dark.css"
-import i18n from "i18next";
 import Select from "react-select";
 
 const TextInput = ({inputClass, onchange, label, subLabel, innerRef, textarea, value, icon, alerts, select, selectType, labelFor, datePicker, options, customRef, after, ...props }) => {

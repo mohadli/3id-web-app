@@ -48,29 +48,20 @@ const Mint = () => {
 
 
 
-    let {
-        data: hash,
+    let {data: hash,
         writeContract: mint,
         isPending: isMintPending,
         isSuccess: isSuccess,
         error: mintError,
     } = useWriteContract();
 
-    console.log("isSuccess", isSuccess)
     console.log("hash", hash)
 
 
-    useEffect(()=>{
+/*    useEffect(()=>{
 
         if (hash !== undefined) {
-            toast.success(t("mintSuccessfully"))
-            setInput({
-                address: {value: "", error: []},
-                domain: {value: "", error: []},
-                description: {value: "", error: []},
-                suffix: {value: "", error: []},
-            })
-            setMoreRecords({})
+
         }
 
     },[isSuccess])
@@ -78,18 +69,18 @@ const Mint = () => {
     useEffect(()=>{
 
         if (mintError) {
-            toast.error(mintError?.shortMessage)
+
         }
 
-    },[mintError])
+    },[mintError])*/
 
-    useEffect(()=>{
+   /* useEffect(()=>{
 
         if (isMintPending) {
             toast(t("pending"))
         }
 
-    },[isMintPending])
+    },[isMintPending])*/
 
 
 
@@ -238,7 +229,6 @@ const Mint = () => {
 
 */
 
-
     const submit = async () => {
 
         if (!isFormValid()) return false;
@@ -275,15 +265,14 @@ const Mint = () => {
                 address: {value: "", error: []},
                 domain: {value: "", error: []},
                 description: {value: "", error: []},
-                suffix: {value: "", error: []},
+                suffix: {value: input?.suffix?.value, error: []},
             })
             setMoreRecords({})
-
             setLoading(false)
+
         }
 
         if (resolver === "onchain") {
-
 
             //signMessage({message: JSON.stringify(dataToSign),})
 
@@ -292,14 +281,28 @@ const Mint = () => {
                 functionName: 'mintSubdomain',
                 args: [ input?.address?.value, input?.domain?.value+"."+input?.suffix?.value],
                 value: readContractData
+            },{
+                onError: (error)=>{
+                    toast.error(error?.shortMessage)
+                    console.log("error", error)
+                    setLoading(false)
+                },
+                onSuccess: (success)=>{
+                    console.log("success", success)
+                    toast.success(t("mintSuccessfully"))
+                    setInput({
+                        address: {value: "", error: []},
+                        domain: {value: "", error: []},
+                        description: {value: "", error: []},
+                        suffix: {value: input?.suffix?.value, error: []},
+                    })
+                    setMoreRecords({})
+                    setLoading(false)
+                }
             })
 
 
-
-            setLoading(false)
         }
-
-        setLoading(false)
 
 
 
@@ -440,6 +443,7 @@ const Mint = () => {
 
 
             <div className={`row jc-between ai-center my-4 width-100`}>
+
                 <Button
                     type="button"
                     buttonClass={`${classes.thisButton} cursor-pointer mb-1  py-2 width-100`}
