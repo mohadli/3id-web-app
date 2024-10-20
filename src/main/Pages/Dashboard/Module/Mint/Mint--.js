@@ -25,8 +25,6 @@ import {toast} from "react-hot-toast";
 import {isMobile} from "react-device-detect";
 import {useDebounce} from "../../../../../Hooks/hooks/useDebounce.ts";
 import {useFetch} from "../../../../../Hooks/hooks/useFetch.ts";
-import {addToDb} from "../../../../../api/api";
-import {useGetDomains} from "../../../../../query";
 
 
 
@@ -40,10 +38,7 @@ const Mint = () => {
     const config = useChainId()
 
 
-    const {refetch:refetchDomains} = useGetDomains()
-
-    let { data, variables, signMessage } = useSignMessage({})
-
+    const { data, variables, signMessage } = useSignMessage({})
 
     const contractConfig = {
         address: '0x4f88Ea0AE5d48ce348CD88812E43aEfD005ed1B8',
@@ -57,6 +52,7 @@ const Mint = () => {
         isSuccess: isSuccess,
         error: mintError,
     } = useWriteContract();
+
 
 
 
@@ -91,6 +87,7 @@ const Mint = () => {
     console.log("variables", variables)*/
 
     const [loading, setLoading] = useState(false)
+    const [hasGatewayData, setHasGatewayData] = useState(false)
 
     const [showRecords, setShowRecords] = useState(false)
     const [resolver, setResolver] = useState("onchain")
@@ -115,8 +112,18 @@ const Mint = () => {
     const debouncedName = useDebounce(input?.domain?.value, 500)
     const enabled = !!debouncedName && regex.test(debouncedName)
 
+    /*const requestBody: WorkerRequest = {
+        name: `${debouncedName}.${selectedExtension}`,
+        owner: input?.address!,
+        addresses: { '60': input?.address },
+        texts: { input?.description },
+        signature: {
+        hash: data!,
+            message: 'test',
+    },*/
 
-    /*const requestBody = {
+
+    const requestBody = {
         name: `${debouncedName}.${input?.suffix?.value}`,
         owner: address,
         addresses: { '60': input?.address?.value },
@@ -126,7 +133,6 @@ const Mint = () => {
             message: variables?.message,
         },
     };
-
 
     const {
         data: gatewayData,
@@ -145,12 +151,69 @@ const Mint = () => {
 
     useEffect(()=>{
 
-        console.log("in useeffect")
+        if (resolver === "offchain" && gatewayData?.success) {
 
-        if (gatewayData) data = null
+            console.log("in mint FUNC offchain")
+            toast.success(t("mintSuccessfully"))
 
-    },[gatewayData])
-*/
+            setInput({
+                address: {value: "", error: []},
+                domain: {value: "", error: []},
+                description: {value: "", error: []},
+                suffix: {value: input?.suffix?.value, error: []},
+            })
+            setMoreRecords({})
+            setLoading(false)
+            setHasGatewayData(false)
+        }
+
+        if (resolver === "onchain" && gatewayData?.success) {
+            console.log("in mint FUNC onchain")
+            mint?.({
+                ...contractConfig,
+                functionName: 'mintSubdomain',
+                args: [ input?.address?.value, input?.domain?.value+"."+input?.suffix?.value],
+                value: readContractData
+            },{
+                onError: (error)=>{
+                    console.log("in mint FUNC onchain error", error)
+                    console.log("in error")
+
+                    toast.error(error?.shortMessage)
+                    setLoading(false)
+                    setHasGatewayData(false)
+                },
+                onSuccess: (success)=>{
+                    toast.success(t("mintSuccessfully"))
+                    console.log("in mint FUNC onchain success", success)
+                    console.log("in success")
+                    setInput({
+                        address: {value: "", error: []},
+                        domain: {value: "", error: []},
+                        description: {value: "", error: []},
+                        suffix: {value: input?.suffix?.value, error: []},
+                    })
+                    setMoreRecords({})
+                    setLoading(false)
+                    setHasGatewayData(false)
+                }
+            })
+        }
+
+
+    },[gatewayData, hasGatewayData])
+
+
+
+    console.log("gatewayData", gatewayData)
+    console.log("gatewayData success", gatewayData?.success)
+    console.log("typeof gatewayData success", typeof gatewayData?.success)
+    console.log("gatewayError", gatewayError)
+    console.log("gatewayIsLoading", gatewayIsLoading)
+
+
+    /*console.log("Object.keys(moreRecords) ", Object.keys(moreRecords) )
+    console.log("RECORDS ", RECORDS )*/
 
     const inputHandler = (e) => {
         let errorMessage = []
@@ -273,6 +336,7 @@ const Mint = () => {
         if (!ismoreRecordsFormValid()) return false;
 
         setLoading(true)
+        setHasGatewayData(true)
 
        /* const dataToSign = JSON.stringify({
             address: input?.address?.value,
@@ -294,113 +358,15 @@ const Mint = () => {
             dataToSign[key] = mergeDataToSign[key].value;
         }
 
-
-
-
         if (resolver === "offchain") {
-            signMessage?.({
-                message: `Register ${debouncedName}.${input?.suffix?.value}`}, {
-                onError: (error)=>{
-                    console.log("error", error);
-
-                    toast.error(t("serverError"))
-                    setLoading(false)
-                },
-                onSuccess: async (success)=>{
-                    console.log("success", success);
-                    console.log("in mint FUNC offchain")
-                    const requestBody = {
-                        name: `${debouncedName}.${input?.suffix?.value}`,
-                        owner: address,
-                        addresses: { '60': input?.address?.value },
-                        texts: { description:input?.description?.value, 'com.github' : moreRecords?.github?.value, 'com.linkedin ' : moreRecords?.linkedin ?.value, 'com.twitter ' : moreRecords?.twitter ?.value, 'com.telegram ' : moreRecords?.telegram ?.value },
-                        signature: {
-                            hash: success,
-                            message: `Register ${debouncedName}.${input?.suffix?.value}`,
-                        },
-                    };
-                    await addToDb(requestBody).then((res)=>{
-                        toast.success(t("mintSuccessfully"))
-                        setInput({
-                            address: {value: "", error: []},
-                            domain: {value: "", error: []},
-                            description: {value: "", error: []},
-                            suffix: {value: input?.suffix?.value, error: []},
-                        })
-                        setMoreRecords({})
-                        setLoading(false)
-                        refetchDomains()
-                    }).catch((err)=>{
-                        toast.error(t("serverError"))
-                        setLoading(false)
-                    })
-                }
-            })
+            /*signMessage({message: JSON.stringify(dataToSign),})*/
+            // signMessage({message: "Hi",})
+            signMessage({message: `Register ${debouncedName}.${input?.suffix?.value}`,})
         }
 
         if (resolver === "onchain") {
-            signMessage?.({
-                message: `Register ${debouncedName}.${input?.suffix?.value}`}, {
-                onError: (error)=>{
-                    console.log("error", error);
-                    toast.error(t("serverError"))
-                    setLoading(false)
-                },
-                onSuccess: async (success)=>{
-                    console.log("success", success);
-                    console.log("in mint FUNC offchain")
-                    const requestBody = {
-                        name: `${debouncedName}.${input?.suffix?.value}`,
-                        owner: address,
-                        addresses: { '60': input?.address?.value },
-                        texts: { description:input?.description?.value, 'com.github' : moreRecords?.github?.value, 'com.linkedin ' : moreRecords?.linkedin ?.value, 'com.twitter ' : moreRecords?.twitter ?.value, 'com.telegram ' : moreRecords?.telegram ?.value },
-                        signature: {
-                            hash: success,
-                            message: `Register ${debouncedName}.${input?.suffix?.value}`,
-                        },
-                    };
-                    await addToDb(requestBody).then((res)=>{
-
-                        mint?.({
-                            ...contractConfig,
-                            functionName: 'mintSubdomain',
-                            args: [ input?.address?.value, input?.domain?.value+"."+input?.suffix?.value],
-                            value: readContractData
-                        },{
-                            onError: (error)=>{
-                                console.log("in mint FUNC onchain error", error)
-                                console.log("in error")
-
-                                toast.error(error?.shortMessage)
-                                setLoading(false)
-                            },
-                            onSuccess: (success)=>{
-                                toast.success(t("mintSuccessfully"))
-                                console.log("in mint FUNC onchain success", success)
-                                console.log("in success")
-                                setInput({
-                                    address: {value: "", error: []},
-                                    domain: {value: "", error: []},
-                                    description: {value: "", error: []},
-                                    suffix: {value: input?.suffix?.value, error: []},
-                                })
-                                setMoreRecords({})
-                                setLoading(false)
-                                refetchDomains()
-                            }
-                        })
-
-                    }).catch((err)=>{
-                        toast.error(t("serverError"))
-                        setLoading(false)
-                    })
-                }
-            })
+            signMessage({message: `Register ${debouncedName}.${input?.suffix?.value}`,})
         }
-
-
-
-
     }
 
 
