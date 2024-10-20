@@ -20,9 +20,19 @@ const Domains = () => {
 
             <Title title={t("recent")}/>
 
+            {/*<span>{Object?.keys(data)?.length}</span>*/}
+
             <div className={`${classes.content} row py-10 fs-02`}>
+
                 {
-                    Object?.keys(data)?.map((name, index) => <div className={`${isMobile ? "ml-5" : "ml-2"}`} key={index}>{name.slice(0, name.indexOf("."))}<span className={`${classes.prefix}`}>{name.slice(name.indexOf("."))}</span> </div>)
+                    Object.keys(data)
+                        .reverse()
+                        .map((name, index) => (
+                            <div className={`${isMobile ? "ml-5" : "ml-2"}`} key={index}>
+                                {name.slice(0, name.indexOf("."))}
+                                <span className={`${classes.prefix}`}>{name.slice(name.indexOf("."))}</span>
+                            </div>
+                        ))
                 }
             </div>
 

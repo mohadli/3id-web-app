@@ -16,10 +16,8 @@ const MintContract = () => {
         functionName: 'getFee',
         args: ['3idone.eth'],
     })
-    console.log(data)
 
     useEffect(()=>{
-        console.log(data)
         //console.log(ethers.utils.formatEther(data))
         if (data) console.log(web3.utils.fromWei(web3.utils.toNumber(data),'ether'))
 

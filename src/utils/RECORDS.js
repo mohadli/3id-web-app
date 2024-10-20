@@ -1,7 +1,11 @@
 const RECORDS =  [
     'Telegram',
-    'Instagram',
+  /*  'Instagram',
     'YouTube',
-    'Discord',
+    'Discord',*/
+
+    'Github',
+    'Twitter ',
+    'Linkedin  ',
 ]
 export default RECORDS;
