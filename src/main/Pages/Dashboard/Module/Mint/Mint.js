@@ -37,18 +37,36 @@ const Mint = () => {
     const { address } = useAccount()
     const { data: ensName } = useEnsName({ address })
     const { isConnected } = useAccount()
-    const config = useChainId()
+    const chainId = useChainId()
+
+    console.log("config", chainId)
 
 
     const {refetch:refetchDomains} = useGetDomains()
 
     let { data, variables, signMessage } = useSignMessage({})
 
+    const optimismAddress = process.env.REACT_APP_OPTIMISM_CONTRACT_ADDRESS;
+    const lineaAddress = process.env.REACT_APP_LINEAMAINNET_CONTRACT_ADDRESS;
+
+    const getContractAddress = () => {
+        if (chainId === 10) { // Optimism
+            return optimismAddress;
+        } else if (chainId === 59144) { // Linea
+            return lineaAddress;
+        } else {
+            throw new Error("Unsupported chain ID");
+        }
+    };
+
+
 
     const contractConfig = {
-        address: '0x4f88Ea0AE5d48ce348CD88812E43aEfD005ed1B8',
+        address: getContractAddress(),
         abi,
     };
+
+    console.log("Contract Config:", contractConfig);
 
 
     let {data: hash,
