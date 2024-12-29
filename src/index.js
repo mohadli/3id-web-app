@@ -9,7 +9,7 @@ import Icons from "./components/Icon/Icon";
 import {darkTheme, getDefaultConfig, RainbowKitProvider,} from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
 import {WagmiProvider} from 'wagmi';
-import {optimism, optimismSepolia, sepolia} from '@wagmi/core/chains';
+import {optimism, optimismSepolia, sepolia, linea} from '@wagmi/core/chains';
 import {QueryClient, QueryClientProvider,} from "@tanstack/react-query";
 
 import toast, {ToastBar, Toaster} from "react-hot-toast";
@@ -74,7 +74,7 @@ const Toast = () => {
 const config = getDefaultConfig({
     appName: '3id-app',
     projectId: 'YOUR_PROJECT_ID',
-    chains: [optimism],
+    chains: [optimism, linea],
     ssr: false, // If your dApp uses server side rendering (SSR)
 });
 
