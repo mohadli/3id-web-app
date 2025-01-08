@@ -120,6 +120,16 @@ const Mint = () => {
         suffix: {value: "", error: []},
     });
 
+
+    useEffect(()=>{
+        setInput({
+            address: {value: "", error: []},
+            domain: {value: "", error: []},
+            description: {value: "", error: []},
+            suffix: {value: "", error: []},
+        })
+    }, [chainId])
+
     const {data: readContractData , error:readContractError, refetch }   = useReadContract({
         ...contractConfig,
         functionName: 'getFee',
@@ -271,10 +281,20 @@ const Mint = () => {
 
     const domainsList = [
         {value: "3idone.eth", label: "3idone.eth"},
+        {value: "one3id.eth", label: "one3id.eth"},
         /*{value: "3id.one", label: "3id.one"},
         {value: "popns.eth", label: "popns.eth"},
         {value: "0-8.eyz", label: "0-8.eyz"},*/
     ]
+
+    const getFilteredDomains = () => {
+        if (chainId === 10) {
+            return domainsList.filter((domain) => domain.value === "3idone.eth");
+        } else if (chainId === 59144) {
+            return domainsList.filter((domain) => domain.value === "one3id.eth");
+        }
+        return [];
+    };
 
     /*if (Object.keys(moreRecords).length > 0) {
         Object.keys(moreRecords).map( (m) =>  console.log(moreRecords[m]?.value))
@@ -473,15 +493,17 @@ const Mint = () => {
                 onchange={(e) => inputHandler(e)}
                 alerts={input.domain.error}
                 inputClass={`width-100 my-1`}
-                after={<TextInput
-                    select={true}
-                    options={domainsList}
-                    defaultValue={domainsList.filter((v) => v.value === input.suffix.value)}
-                    inputClass={`width-100`}
-                    type="select"
-                    onchange={(e) => setInput({...input, suffix: {value: e.value, error: []}})}
-                    alerts={input.suffix.error}
-                />}
+                after={
+                    <TextInput
+                        select={true}
+                        options={getFilteredDomains()} // فیلتر کردن گزینه‌ها
+                        defaultValue={getFilteredDomains().filter((v) => v.value === input.suffix.value)}
+                        inputClass={`width-100`}
+                        type="select"
+                        onchange={(e) => setInput({...input, suffix: {value: e.value, error: []}})}
+                        alerts={input.suffix.error}
+                    />
+                }
             />
 
 

@@ -6,7 +6,7 @@ import Select from "react-select";
 
 const TextInput = ({inputClass, onchange, label, subLabel, innerRef, textarea, value, icon, alerts, select, selectType, labelFor, datePicker, options, customRef, after, ...props }) => {
 
-
+    console.log("defaultValue", props?.defaultValue)
 
    /* const theme = window.env.REACT_APP_DEFAULT_THEME*/
 
@@ -73,6 +73,8 @@ const TextInput = ({inputClass, onchange, label, subLabel, innerRef, textarea, v
                            ref={customRef}
                            classNamePrefix="select"
                            className={`${classes.selectBox} selectExternalClass`}
+                           defaultValue={props?.defaultValue}
+                           value={props?.defaultValue ? props?.defaultValue : null}
                            {...props}
                        /> :
                <input
